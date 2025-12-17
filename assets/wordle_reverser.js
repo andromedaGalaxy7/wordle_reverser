@@ -91,4 +91,32 @@ function solve(){
         display_error("The final solution is too long (Not 6 letters)");
         return;
     }
+
+    // Create the grid
+    let wordle_grid = [];
+    const all_letter_boxes = document.getElementsByClassName("letterbox");
+    let counter=0;
+    for(i=0; i < 6; i++){
+        const row = []
+        for(j=0;j<5;j++){
+            const element = all_letter_boxes[counter];
+            if(element.classList.contains("c")){
+                row.push("c");
+            }
+            else if(element.classList.contains("s")){
+                row.push("s");
+            }
+            else{
+                row.push("w");
+            }
+            counter++;
+        }
+        if(row.includes("w") || row.includes("s")) {
+            wordle_grid.push(row);
+        }
+        else{
+            i=6;
+        }
+    }
+    console.log(wordle_grid);
 }
