@@ -1,0 +1,148 @@
+:root{
+    --wrong-letter: #3a3a3c;
+    --semi-correct-letter: #b59f3b;
+    --correct-letter: #538d4e;
+    --letter-text: white;
+    --letterbox-min-size: 3rem;
+    --grid-size: 20rem;
+    --letterbox-border: 1px blue solid;
+    --hover-border: 3px red solid;
+    --body-bg: black;
+    --body-color: white;
+    --grid-border: white 2px solid;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    min-height: 100vh;
+    font-family: sans-serif;
+    background-color: var(--body-bg);
+    color: var(--body-color);
+}
+
+.page{
+    width: 85%;
+    margin: auto;
+}
+
+.selection_area{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+#wordle_grid{
+    margin: 1rem;
+    display: grid;
+    grid-template-rows: repeat(6, auto);
+    grid-template-columns: repeat(5, auto);
+    gap: 0.25rem;
+    width: var(--grid-size);
+    border: var(--grid-border);
+    padding:0.2rem;
+}
+
+.letterbox{
+    min-width: var(--letterbox-min-size);
+    min-height: var(--letterbox-min-size);
+    aspect-ratio: 1/1;
+    border: var(--letterbox-border);
+    background-color: var(--wrong-letter);
+}
+
+.w{
+    background-color: var(--wrong-letter);
+}
+
+.s{
+    background-color: var(--semi-correct-letter);
+}
+
+.c{
+    background-color: var(--correct-letter)
+}
+
+.color_picker{
+    display: flex;
+    flex-direction: column;
+    margin-left: 2rem;
+}
+
+.color_choice{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.color_choice_box{
+    border: var(--letterbox-border);
+    min-width: var(--letterbox-min-size);
+    min-height: var(--letterbox-min-size);
+    aspect-ratio: 1/1;
+    margin: 1rem;
+}
+
+.color_choice_box:hover, .letterbox:hover{
+    border: var(--hover-border);
+    cursor: pointer;
+}
+
+.color_choice_text{
+    text-align: center;
+}
+
+#word_input{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 1rem;
+}
+
+input[id="wordle_word"]{
+    max-width: 20rem;
+    border-radius: 0.25rem;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+}
+
+.action{
+    display: flex;
+    justify-content: center;
+}
+
+#reverse_bnt{
+    margin: 1rem;
+    padding: .75rem;
+    background-color: blue;
+    color: white;
+    border-radius: 0.25rem;
+    transition: background-color 0.5s;
+    font-size: x-large;
+}
+
+#reverse_bnt:hover{
+    cursor: pointer;
+    background-color: #030367;
+}
+
+.selected::after{
+    color: red;
+    content: "[SELECTED]";
+    padding: 0 1rem;
+}
+
+.nodisplay{
+    display: none;
+}
+
+.notif_bar{
+    display: flex;
+    justify-content: center;
+    color: #ff8787;
+}

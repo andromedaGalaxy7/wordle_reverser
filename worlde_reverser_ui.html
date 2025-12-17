@@ -2,9 +2,82 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Wordle Reverser Online</title>
+    <link rel="stylesheet" type="text/css" href="assets/wordle_reverser.css">
+    <script src="assets/wordle_reverser.js"></script>
 </head>
 <body>
+    <div class="page">
+        <div class="selection_area">
+            <div id="wordle_grid">
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+                <div class="letterbox"></div>
+            </div>
+            <div class="color_picker">
+                <div class="color_choice">
+                    <div class="color_choice_box c" onclick="to_correct()"></div>
+                    <div class="color_choice_text selected" id="correct_box">→ Correct letter, correct position</div>
+                </div>
+
+                <div class="color_choice">
+                    <div class="color_choice_box s" onclick="to_semi_correct()"></div>
+                    <div class="color_choice_text" id="semi_correct_box">→ Correct letter, wrong position </div>
+                </div>
+
+                <div class="color_choice">
+                    <div class="color_choice_box w" onclick="to_wrong()"></div>
+                    <div class="color_choice_text" id="wrong_box">→ Wrong letter, not in word</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="word_input">
+            <label for="wordle_word">What was the final or the correct solution ?</label>
+            <input type="text" id="wordle_word" name="wordle_word" value="CRANE" placeholder="The actual word" maxlength="6"">
+        </div>
+
+        <div class="action">
+            <button id="reverse_bnt" onclick="solve()">REVERSE !!!</button>
+        </div>
+
+        <div class="notif_bar nodisplay" id="notif_bar">
+
+        </div>
+
+    </div>
 
 </body>
 </html>
