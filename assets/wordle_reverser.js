@@ -31,9 +31,29 @@ function to_wrong(){
 }
 
 /*
+* Function to clear all the boxes to gray
+* */
+function clear_all(){
+    const letterboxes = document.getElementsByClassName("letterbox");
+    for(const letterbox of letterboxes){
+        letterbox.classList.remove("c");
+        letterbox.classList.remove("s");
+        letterbox.classList.remove("w");
+    }
+}
+
+/*
 Add event listeners to the page which
 will in turn add event listeners to the letter box
  */
+let mouse_down = false;
+document.addEventListener('mouseup', () => {
+    mouse_down = false;
+});
+
+document.addEventListener('mousedown', () => {
+    mouse_down = true;
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     const letterboxes = document.getElementsByClassName("letterbox");
@@ -46,6 +66,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Add the current selected color
             trigger.classList.add(selected_color);
+        })
+    }
+
+    for(const letterbox of letterboxes){
+        letterbox.addEventListener('mouseenter', (e) => {
+            if(mouse_down) {
+                const trigger = e.target;
+                trigger.classList.remove("c");
+                trigger.classList.remove("s");
+                trigger.classList.remove("w");
+
+                // Add the current selected color
+                trigger.classList.add(selected_color);
+            }
         })
     }
 });

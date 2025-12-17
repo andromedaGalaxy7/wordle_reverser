@@ -96,6 +96,22 @@ body{
 .color_choice_text{
     text-align: center;
 }
+#clear_btn{
+    width: 7rem;
+    margin: 0.5rem;
+    padding: 0.75rem;
+    font-size: large;
+    font-family: 'fantasy';
+    background-color: #2af618;
+    color: #030367;
+    transition: 0.2s;
+}
+
+#clear_btn:hover{
+    cursor: pointer;
+    background-color: #0e5e05;
+    color: #10f8ee;
+}
 
 #word_input{
     display: flex;
