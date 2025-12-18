@@ -113,65 +113,70 @@ function value_counts(arr, value){
 * player thought the word had
  */
 
-function match_against_rule(letters_not_available_to_use,
-                            letters_not_in_this_position,
-                            letters_in_this_position,
-                            word_to_match){
-        // Check if it has letters not available to use
-        for(const blacklisted_letter of letters_not_available_to_use){
-            if(word_to_match.contains(blacklisted_letter)){
+function match_against_rule(word_to_match,
+                            has_to_be,
+                            cannot_be){
+
+    let counter = 0;
+    while(counter < 5){
+        let found = false;
+        if(has_to_be[counter]){
+            if(word_to_match[counter] in has_to_be[counter]){
+                found = true;
+            }
+        }
+
+        if(!found){
+            return false;
+        }
+        counter++;
+    }
+
+    counter = 0;
+    while(counter < 5){
+        if(cannot_be[counter]){
+            if(word_to_match[counter] in cannot_be[counter]){
                 return false;
             }
         }
+        counter++;
+    }
 
-        // Check if the position of letters match
-        let counter = 0;
-        // const counts = {};
-        while(counter<5){
-            if(letters_not_in_this_position[counter]) {
-                if (letters_not_in_this_position[counter] === word_to_match[counter]) {
-                    return false;
-                }
-
-                // if(letters_in_this_position[counter] in counts){
-                //     counts[letters_in_this_position[counter]]++;
-                // }
-                // else{
-                //     counts[letters_in_this_position[counter]] = 1;
-                // }
-
-            }
-
-            if(letters_in_this_position[counter]){
-                if(letters_in_this_position[counter] !== word_to_match[counter]){
-                    return false;
-                }
-
-                // if(letters_in_this_position[counter] in counts){
-                //     counts[letters_in_this_position[counter]]++;
-                // }
-                // else{
-                //     counts[letters_in_this_position[counter]] = 1;
-                // }
-            }
-
-            counter++;
-        }
-
-        // // Match the counts
-        // for(const[value, count] of counts){
-        //     if(value_counts(word_to_match, value) !== count){
-        //         return false;
-        //     }
-        // }
-        return true;
+    return true;
 }
 
-function logical_solve(letters_not_available_to_use,
-                       letters_not_in_this_position,
+function lowest_cost_logical_solution(final_word,
+                       current_word,
+                       depth,
+                       illegal_letters,
+                       wordle_grid){
+    // Return with minimal cost if depth < 0
+    if(depth < 0) return 0;
 
-                       depth){
+    // Rule construction
+    let row_colors = wordle_grid[depth]
+    let wrong_positioned_letters = []
+    let more_illegal_letters = []
+    let correct_letters = []
 
+    let counter = 0;
+    for(const color of row_colors){
+        if(color === 'c'){
+            correct_letters.push(current_word[counter]);
+        }
+        else{
+            correct_letters.push("");
+        }
+        counter++;
+    }
+
+    // Loop through the list and find the minimum cost word
+    counter = 0;
+    for(const possible_word of words ){
+        const costs = {};
+
+        counter++;
+    }
 }
 
 /*
