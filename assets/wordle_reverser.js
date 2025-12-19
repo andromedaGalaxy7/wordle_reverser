@@ -146,7 +146,6 @@ function match_against_rule(word_to_match,
 }
 
 function lowest_cost_logical_solution(final_word,
-                       current_word,
                        depth,
                        illegal_letters,
                        wordle_grid){
@@ -154,24 +153,39 @@ function lowest_cost_logical_solution(final_word,
     if(depth < 0) return 0;
 
     // Rule construction
-    let row_colors = wordle_grid[depth]
-    let wrong_positioned_letters = []
-    let more_illegal_letters = []
-    let correct_letters = []
+    let row_colors = wordle_grid[depth];
 
-    let counter = 0;
+    let has_to_be = [[], [], [], [], []];
+    let cannot_be = [[], [], [], [], []];
+
+    let color_counter = 0;
+    let undiscovered_letters = [];
     for(const color of row_colors){
-        if(color === 'c'){
-            correct_letters.push(current_word[counter]);
+        if(color === 'w'){
+            undiscovered_letters.push(final_word[color_counter]);
         }
+        color_counter++;
+    }
+
+    color_counter = 0;
+    for(const color of row_colors){
+        if(color === 'w'){
+            cannot_be[color_counter] = final_word;
+        }
+
+        else if(color === 's'){
+            has_to_be[color_counter] = undiscovered_letters;
+            cannot_be[color_counter].push(final_word[color_counter]);
+        }
+        // c
         else{
-            correct_letters.push("");
+            has_to_be[color_counter].push(final_word[color_counter]);
         }
-        counter++;
+        color_counter++;
     }
 
     // Loop through the list and find the minimum cost word
-    counter = 0;
+    let counter = 0;
     for(const possible_word of words ){
         const costs = {};
 
