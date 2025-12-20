@@ -119,31 +119,33 @@ function match_against_rule(word_to_match,
 
     let counter = 0;
     while(counter < 5){
-        let found = false;
-        if(has_to_be[counter]){
-            if(word_to_match[counter] in has_to_be[counter]){
-                found = true;
-            }
-        }
+        let has_to_be_box = has_to_be[counter];
+        let cannot_be_box = cannot_be[counter];
+        const letter = word_to_match[counter];
 
-        if(!found){
-            return false;
-        }
-        counter++;
-    }
-
-    counter = 0;
-    while(counter < 5){
-        if(cannot_be[counter]){
-            if(word_to_match[counter] in cannot_be[counter]){
+        if(has_to_be.length > 0){
+            if(!(letter in has_to_be_box)){
                 return false;
             }
         }
+
+        if(cannot_be_box.length > 0){
+            if(letter in cannot_be_box){
+                return false;
+            }
+        }
+
         counter++;
     }
 
     return true;
 }
+
+/*
+Tries to solve the worlde assuming that
+the user solved it logically
+without using the illegal letters
+*/
 
 function lowest_cost_logical_solution(final_word,
                        depth,
@@ -194,7 +196,78 @@ function lowest_cost_logical_solution(final_word,
 }
 
 /*
- The solver
+ Naive solve algorithm.
+ Simply loops through the rows, and returns the first word that matches from the list
+ of words, on all the conditions
+*/
+
+function naive_solve(wordle_grid, final_word){
+    console.log("Final word is", final_word);
+    console.log("The grid looks like dat::");
+    console.log(wordle_grid);
+
+    let counter = wordle_grid.length - 1;
+    while(counter >= 0){
+        const current_row = wordle_grid[counter];
+        
+        // Rule generation
+        let i = 0;
+        let has_to_be = [];
+        let cannot_be = [];
+        for(i = 0; i < 5; i++){
+            const box_letter = current_row[i];
+            let box_has_to_be = []
+            let box_cannot_be = []
+
+            if(box_letter === 'c'){
+                box_has_to_be.push(final_word[i]);
+            }
+            else if(box_letter == 's'){
+                let actual_letter = final_word[i];
+                box_cannot_be.push(actual_letter);
+
+                for(const letter of final_word){
+                    if(letter !== actual_letter){
+                        box_has_to_be.push(letter);
+                    }
+                }
+            }
+
+            else{
+                for(const letter of final_word){
+                    box_cannot_be.push(letter);
+                }
+            }
+
+            has_to_be.push(box_has_to_be);
+            cannot_be.push(box_cannot_be);
+        }
+
+        // Try figuring out the word
+        console.log("The has to be rule is :");
+        console.log(has_to_be);
+        console.log("The cannot be rule is :");
+        console.log(cannot_be);
+        console.log("The row is");
+        console.log(current_row);
+
+
+        for(const word of words){
+            let matches  = match_against_rule(word, has_to_be, cannot_be);
+            if(matches){
+                console.log(word);
+            }
+        }
+
+        console.log("=============================");
+        counter--;
+    }    
+}
+
+/*
+ The gateway solve function, that is called
+ when the user presses the REVERSE button on
+ the HTML
  */
 
 function solve(){
@@ -244,5 +317,5 @@ function solve(){
     }
 
     // Solve from down to top
-
+    naive_solve(wordle_grid, final_word);
 }
